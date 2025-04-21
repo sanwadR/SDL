@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Railway Timetable</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      padding: 20px;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #2c3e50;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    th, td {
+      padding: 12px;
+      border: 1px solid #ddd;
+      text-align: center;
+    }
+    th {
+      background-color: #34495e;
+      color: #fff;
+    }
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+    .highlight {
+      background-color: #dff0d8;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Railway Timetable</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Train No.</th>
+        <th>Train Name</th>
+        <th>From</th>
+        <th>To</th>
+        <th>Departure</th>
+        <th>Arrival</th>
+        <th>Days of Operation</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>12101</td>
+        <td>Jnaneswari Express</td>
+        <td>Mumbai</td>
+        <td>Kolkata</td>
+        <td>20:35</td>
+        <td>20:45 (Next Day)</td>
+        <td>Mon, Wed, Fri</td>
+      </tr>
+      <tr class="highlight">
+        <td>12951</td>
+        <td>Rajdhani Express</td>
+        <td>Mumbai</td>
+        <td>New Delhi</td>
+        <td>17:00</td>
+        <td>08:35 (Next Day)</td>
+        <td>Daily</td>
+      </tr>
+      <tr>
+        <td>12627</td>
+        <td>Karnataka Express</td>
+        <td>Bangalore</td>
+        <td>New Delhi</td>
+        <td>19:20</td>
+        <td>05:40 (3rd Day)</td>
+        <td>Tue, Thu, Sat</td>
+      </tr>
+      <tr class="highlight">
+        <td>12860</td>
+        <td>Gitanjali Express</td>
+        <td>Kolkata</td>
+        <td>Mumbai</td>
+        <td>14:05</td>
+        <td>21:20 (Next Day)</td>
+        <td>Daily</td>
+      </tr>
+      <tr>
+        <td>12293</td>
+        <td>YPR Duronto Express</td>
+        <td>Bangalore</td>
+        <td>Delhi</td>
+        <td>11:15</td>
+        <td>07:20 (Next Day)</td>
+        <td>Mon, Fri</td>
+      </tr>
+    </tbody>
+  </table>
+
+</body>
+</html>

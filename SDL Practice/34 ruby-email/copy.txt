@@ -1,0 +1,27 @@
+require 'mail'
+
+# Set up SMTP settings
+Mail.defaults do
+  delivery_method :smtp, {
+    address: 'smtp.gmail.com',
+    port: 587,
+    user_name: 'sanwadcloud5@gmail.com',
+    password: 'vuat zrgf izju sybg',
+    authentication: :login,
+    enable_starttls_auto: true
+  }
+end
+
+# Define email message
+message = Mail.new do
+  from 'sanwadcloud5@gmail.com'
+  to 'sanwad.rashinkar22@pccoepune.org'
+  subject 'Test Email from Ruby'
+  body 'Hi sanwad all the best for your tomorrows Practical Exam.'
+end
+
+# Send email
+message.deliver!
+
+#gem install mail
+#Sanwad@pccoe

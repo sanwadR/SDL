@@ -1,0 +1,74 @@
+🔄 Step-by-Step Single Page Code
+📁 1. Create Database and Table in MySQL:
+sql
+Copy
+Edit
+CREATE DATABASE email_verification;
+USE email_verification;
+
+CREATE TABLE users (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(100),
+  email VARCHAR(100),
+  token VARCHAR(255),
+  is_verified TINYINT(1) DEFAULT 0
+);
+📄 2. index.php (Handles form, sends mail, verifies token)
+php
+Copy
+Edit
+<?php
+// DB Connection
+$conn = new mysqli("localhost", "root", "", "email_verification");
+
+if (isset($_POST['register'])) {
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $token = md5(rand(1000, 9999)); // simple token
+
+    // Insert user
+    $sql = "INSERT INTO users (name, email, token) VALUES ('$name', '$email', '$token')";
+    if ($conn->query($sql)) {
+        $verifyLink = "http://localhost/email/index.php?verify=$token";
+
+        $subject = "Email Verification";
+        $message = "Hi $name,\nClick the link below to verify your email:\n$verifyLink";
+        $headers = "From: noreply@example.com";
+
+        mail($email, $subject, $message, $headers);
+        echo "<p style='color:green'>Verification link sent to your email.</p>";
+    } else {
+        echo "<p style='color:red'>Error: " . $conn->error . "</p>";
+    }
+}
+
+// Verify token
+if (isset($_GET['verify'])) {
+    $token = $_GET['verify'];
+    $check = "SELECT * FROM users WHERE token='$token' AND is_verified=0";
+    $res = $conn->query($check);
+    if ($res->num_rows > 0) {
+        $update = "UPDATE users SET is_verified=1 WHERE token='$token'";
+        if ($conn->query($update)) {
+            echo "<p style='color:blue'>Your email has been verified successfully!</p>";
+        }
+    } else {
+        echo "<p style='color:red'>Invalid or already verified token.</p>";
+    }
+}
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Email Verification</title>
+</head>
+<body>
+  <h2>Register for Email Verification</h2>
+  <form method="POST">
+    <input type="text" name="name" required placeholder="Your Name"><br><br>
+    <input type="email" name="email" required placeholder="Your Email"><br><br>
+    <button type="submit" name="register">Register</button>
+  </form>
+</body>
+</html>

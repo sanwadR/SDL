@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Facebook Registration Form</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f2f5;
+        padding: 20px;
+      }
+      .form-container {
+        background-color: #fff;
+        max-width: 400px;
+        margin: auto;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      .form-group {
+        margin-bottom: 15px;
+      }
+      label {
+        display: block;
+        font-weight: bold;
+      }
+      input,
+      select {
+        width: 100%;
+        padding: 8px;
+        margin-top: 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+      .error {
+        color: red;
+        font-size: 14px;
+      }
+      button {
+        background-color: #1877f2;
+        color: white;
+        padding: 10px;
+        width: 100%;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="form-container">
+      <h2>Create a Facebook Account</h2>
+      <form id="registrationForm" onsubmit="return validateForm()">
+        <div class="form-group">
+          <label>First Name</label>
+          <input type="text" id="firstName" onblur="validateFirstName()" />
+          <span class="error" id="firstNameError"></span>
+        </div>
+
+        <div class="form-group">
+          <label>Last Name</label>
+          <input type="text" id="lastName" onblur="validateLastName()" />
+          <span class="error" id="lastNameError"></span>
+        </div>
+
+        <div class="form-group">
+          <label>Email</label>
+          <input type="text" id="email" onblur="validateEmail()" />
+          <span class="error" id="emailError"></span>
+        </div>
+
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="password" onblur="validatePassword()" />
+          <span class="error" id="passwordError"></span>
+        </div>
+
+        <div class="form-group">
+          <label>Date of Birth</label>
+          <input type="date" id="dob" onblur="validateDOB()" />
+          <span class="error" id="dobError"></span>
+        </div>
+
+        <div class="form-group">
+          <label>Gender</label>
+          <select id="gender" onblur="validateGender()">
+            <option value="">Select Gender</option>
+            <option>Male</option>
+            <option>Female</option>
+            <option>Other</option>
+          </select>
+          <span class="error" id="genderError"></span>
+        </div>
+
+        <button type="submit">Register</button>
+      </form>
+    </div>
+
+    <script>
+      function validateFirstName() {
+        const value = document.getElementById("firstName").value.trim();
+        document.getElementById("firstNameError").textContent =
+          value === "" ? "First name is required" : "";
+      }
+
+      function validateLastName() {
+        const value = document.getElementById("lastName").value.trim();
+        document.getElementById("lastNameError").textContent =
+          value === "" ? "Last name is required" : "";
+      }
+
+      function validateEmail() {
+        const email = document.getElementById("email").value.trim();
+        const error = document.getElementById("emailError");
+        const pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+        if (email === "") {
+          error.textContent = "Email is required";
+        } else if (!pattern.test(email)) {
+          error.textContent = "Enter a valid email address";
+        } else {
+          error.textContent = "";
+        }
+      }
+
+      function validatePassword() {
+        const password = document.getElementById("password").value.trim();
+        const error = document.getElementById("passwordError");
+
+        const minLength = 8;
+        const hasUpperCase = /[A-Z]/.test(password);
+        const hasLowerCase = /[a-z]/.test(password);
+        const hasNumber = /[0-9]/.test(password);
+        const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+
+        if (password === "") {
+          error.textContent = "Password is required";
+        } else if (password.length < minLength) {
+          error.textContent = "Password must be at least 8 characters";
+        } else if (!hasUpperCase) {
+          error.textContent =
+            "Password must include at least one uppercase letter";
+        } else if (!hasLowerCase) {
+          error.textContent =
+            "Password must include at least one lowercase letter";
+        } else if (!hasNumber) {
+          error.textContent = "Password must include at least one number";
+        } else if (!hasSpecialChar) {
+          error.textContent =
+            "Password must include at least one special character";
+        } else {
+          error.textContent = "";
+        }
+      }
+
+      function validateDOB() {
+        const dob = document.getElementById("dob").value.trim();
+        document.getElementById("dobError").textContent =
+          dob === "" ? "Date of birth is required" : "";
+      }
+
+      function validateGender() {
+        const gender = document.getElementById("gender").value.trim();
+        document.getElementById("genderError").textContent =
+          gender === "" ? "Please select gender" : "";
+      }
+
+      function validateForm() {
+        validateFirstName();
+        validateLastName();
+        validateEmail();
+        validatePassword();
+        validateDOB();
+        validateGender();
+
+        const errors = document.querySelectorAll(".error");
+        for (let error of errors) {
+          if (error.textContent !== "") {
+            return false; // prevent form submission
+          }
+        }
+        alert("Registration Successful!");
+        return true;
+      }
+    </script>
+  </body>
+</html>
